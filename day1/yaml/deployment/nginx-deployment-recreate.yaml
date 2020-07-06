@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  selector:
+    matchLabels:
+      software: reverse-proxy
+
+  replicas: 2
+  strategy:
+    type: Recreate
+
+
+  template:
+    metadata:
+      labels:
+        software: reverse-proxy
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.13
+          ports:
+            - containerPort: 80
+
