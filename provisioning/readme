@@ -19,6 +19,10 @@ If the vm creation fail with error "Virtualization need to be enabled", restart 
 press F11/F12 and enable the virtualization from the BIOS setup.
 
 
+
+username  vagrant/vagrant
+root/vagrant
+
 Enable Virtualization in OS 
 ---------------------------
 
