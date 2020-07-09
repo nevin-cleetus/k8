@@ -1,0 +1,31 @@
+
+To see all Control plane components and status
+
+#kubectl get pods -n kube-system
+
+#kubectl get pods -n kube-system  -o wide   [Return the POD info along with details like IP, Node etc ] 
+
+#kubectl describe pod <pod-name>  to see details about running pod
+
+#kubectl explain <pod|replicaioncontroller|replicationset|service>  [To know the YAML structure]
+
+#kubectl get pods --l environment=production,tier=frontend  [To filter pods with a label]
+
+#kubectl delete pod  <pod_name>
+
+#kubectl delete <pod|rc|rs|deployment|svc> <name>
+
+#kubectl exec -it <pod name> /bin/sh   [ To connect to a running pod]
+
+#kubectl exec -it <pod name> -c <container_name>  /bin/sh   [ To connect to a running container in a POD if multiple containers are present]
+
+#kubectl create -f <yaml-file>   [To create any kubernetes resource through YAML]
+
+#kubectl apply -f <yaml-file>   [To updateany kubernetes resource already existing through YAML. You may also run it to create it first time]
+
+#kubectl delete -f <yaml-file>   [To delete any kubernetes resource already created through the YAML]
+
+
+
+
+
