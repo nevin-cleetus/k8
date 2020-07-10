@@ -1,0 +1,15 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name:  hellojob
+spec:
+  template:
+    metadata:
+      name:  hellojobpod
+    spec:
+      containers:
+      - image: alpine
+        name: alpine-hello-container
+        command: ["/bin/echo"]
+        args: ["Hello Kubernetes !!!"]        
+      restartPolicy: Never
