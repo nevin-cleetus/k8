@@ -1,0 +1,64 @@
+Please refer the section 'Some Advice on Choosing the Network CNI' from neuvector.com to see the original content.
+
+Refer: https://neuvector.com/network-security/advanced-kubernetes-networking/. Copying it just in case the link is not accessible. 
+
+
+Choosing the Network CNI
+------------------------
+
+Which CNI solution should choose? I will try to at least give you advice about how to go about making this decision.
+First, Define the Problem
+
+The first thing for every project is to define the problem you want to solve first in as much detail as possible. You will want to know 
+what kind of applications you want to deploy and what kind of load they generate. Some of the questions you could ask yourself are:
+
+Is my application:
+
+    Heavy on the network?
+    Sensitive to latency?
+    A monolith?
+    A microservice architected service?
+    On multiple networks?
+
+Can I Withstand Major Downtime? Or Even Minor?
+
+This is an important question because that you should decide up front, because if you choose one solution now and later you want to 
+switch you will need to re-setup the network and redeploy all your containers. Unless you already have something in place like multus 
+and work with multiple networks, this will mean a downtime for your service. Most of the time it will be fine if you have a planned 
+maintenance window, but as you grow, zero downtime becomes more important.
+My Application is on Multiple Networks
+
+This scenario is quite common in on-premise installations. In fact, if you only want to separate the traffic going over the private 
+network and the public network this will require you to either setup multiple networks or have clever routing.
+Is There a Certain Feature You Need from the CNI’s?
+
+Another thing influencing your decision can be that you want some features of the CNI’s not available to other CNI’s. For example you 
+want to utilize weave or you want more mature loadbalancing through ipvs.
+What Network Performance is Required?
+
+If you answered that your application is sensitive to latency or heavy on the network you might want to avoid any overlay network. 
+Overlays can can be expensive on performance and even more so at scale. If this is the case the only way to improve performance on 
+the network is to avoid overlays and utilize networking utilities like routing instead. When you look for network performance you 
+have a few choices, for example: Ipvlan
+
+Ipvlan could be an option for you, it has a good performance, but has it caveats, i.e. you can’t use macv{tap,lan} at the same time 
+on the same host.
+
+Calico
+Calico is not the most user friendly CNI, but it provides you with much better performance compared to vxlan and can be scaled without 
+issues.
+
+Kube-Router
+
+Kube-router will give you better performance like Calico, since they both use BGP and routing, plus support for LVS/IPVS. But it might
+not be as battle tested as Calico.
+
+Cloud Provider Solutions
+
+Last but not least, some of the cloud providers do provide own kubernetes networking solutions that may or may not perform better.
+Amazon for example has their aws-vpc which is supported on flannel. Aws-vpc performs in most scenarios about as good as ipvlan.
+But I Just Want Something That Works!
+
+Yes, that is understandable, and this is the case for most users. In this case probably canal or Flannel with vxlan will be the way to
+go because it is a no-brainer and just works. However as I said before vxlan is slow and it will cost you significantly more resources
+as you grow. But this is definitely the easiest way to start.
