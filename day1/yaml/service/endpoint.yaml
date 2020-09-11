@@ -1,0 +1,9 @@
+kind: Endpoints
+apiVersion: v1
+metadata:
+ name: mysqldb
+subsets:
+ - addresses:
+     - ip: 172.42.42.160
+   ports:
+     - port: 3306
