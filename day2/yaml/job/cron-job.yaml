@@ -1,0 +1,18 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+
+metadata:
+  name:  helloworld-cron
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          name:  helloworld-cron
+        spec:
+          containers:
+          - image: busybox
+            name: busybox-cron
+            command: ["/bin/echo", "Hello Kubernetes"]
+          restartPolicy: Never
