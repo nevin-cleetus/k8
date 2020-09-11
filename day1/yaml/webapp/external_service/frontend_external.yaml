@@ -1,0 +1,10 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: 
+  namespace: frontend
+spec:
+  type: ExternalName
+  externalName: backendapi.backend.svc.cluster.local
+  ports:
+  - port: 5000
