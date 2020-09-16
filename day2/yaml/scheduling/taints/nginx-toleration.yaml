@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Pod
 
 metadata:
-  name: nginx
+  name: nginxred
   labels: 
     software: reverse-proxy    
 
@@ -19,6 +19,6 @@ spec:
   tolerations:
   - key: "color"
     operator: "Equal"
-    value: "green"   
-    effect: "NoSchedule"
+    value: "red"   
+    effect: "NoExecute"
 
