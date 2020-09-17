@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: LimitRange
+metadata:
+
+  name: memlimitrange
+  namespace: dev
+spec:
+  limits:
+  - max:
+      memory: 1Gi
+    min:
+      memory: 500Mi
+    type: Container
