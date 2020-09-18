@@ -1,0 +1,42 @@
+
+sudo su
+
+yum install nfs-utils
+
+mkdir /var/nfsshare
+
+chmod -R 755 /var/nfsshare
+
+chown nfsnobody:nfsnobody /var/nfsshare
+
+systemctl enable rpcbind
+systemctl enable nfs-server
+systemctl enable nfs-lock
+systemctl enable nfs-idmap
+systemctl start rpcbind
+systemctl start nfs-server
+systemctl start nfs-lock
+systemctl start nfs-idmap
+
+
+vi /etc/exports    and include below content
+
+/var/nfsshare    *(rw,sync,no_root_squash,no_all_squash)
+
+exportfs -arv
+
+systemctl restart nfs-server
+
+
+NFS client end
+
+sudo su
+yum install nfs-utils
+
+mkdir -p /mnt/nfs/var/nfsshare
+
+ mount -t nfs <IP of NFS Server>:/var/nfsshare /mnt/nfs/var/nfsshare/
+ 
+ 
+ 
+
