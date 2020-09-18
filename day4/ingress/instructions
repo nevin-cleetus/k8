@@ -17,20 +17,20 @@ kubectl create -f yaml/frontend-clusterip-service.yaml
 Deploy the Nginx Ingress controller
 -----------------------------------
 
-kubectl create -f yaml/ingress-nginx-deployment.yaml
-or 
 kubectl create -f  https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.24.1/deploy/mandatory.yaml
+
 
 Expose the ingress-nginx either as a NodePort or a LoadBalancer service.
 
-kubectl create -f yaml/ingress-nginx-nodeport.yaml
-or
-kubectl create -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.24.1/deploy/provider/cloud-generic.yaml
 
+kubectl create namespace ingress-nginx
+
+kubectl create -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.24.1/deploy/provider/cloud-generic.yaml
 
 kubectl get svc -n ingress-nginx
 
 Create an ingress resource to point the path to services
+
 
 kubectl create -f yaml/ingress-resource.yaml
 
