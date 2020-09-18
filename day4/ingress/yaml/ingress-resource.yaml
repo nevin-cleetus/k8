@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-resource
+spec:
+  rules:
+  
+  - host: frontend.nginx.example.com
+    http:
+      paths:
+      - backend:
+          serviceName: frontendapi-clusterip-service
+          servicePort: 80
+  - host: backend.nginx.example.com
+    http:
+      paths:
+      - backend:
+          serviceName: backendapi-clusterip-service
+          servicePort: 5000

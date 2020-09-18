@@ -1,0 +1,68 @@
+Create the frontend and backend service using below steps
+
+
+kubectl create -f yaml/backend.yaml
+
+kubectl create -f yaml/backend-clusterip-service.yaml
+
+kubectl get svc  [Get the IP address of the backend service ]
+
+vi yaml/frontend.yaml
+
+Modify the APPURL value in env section to point to the Service IP address of the backend service. The front end service shall
+call the backend through the service.
+
+kubectl create -f yaml/frontend-clusterip-service.yaml
+
+Deploy the Nginx Ingress controller
+-----------------------------------
+
+kubectl create -f yaml/ingress-nginx-deployment.yaml
+or 
+kubectl create -f  https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.24.1/deploy/mandatory.yaml
+
+Expose the ingress-nginx either as a NodePort or a LoadBalancer service.
+
+kubectl create -f yaml/ingress-nginx-nodeport.yaml
+or
+kubectl create -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.24.1/deploy/provider/cloud-generic.yaml
+
+
+kubectl get svc -n ingress-nginx
+
+Create an ingress resource to point the path to services
+
+kubectl create -f yaml/ingress-resource.yaml
+
+In order  for this to work, we need to add the DNS  entries in /etc/hosts
+For Exp-
+
+172.42.42.100   nginx.example.com
+172.42.42.100   frontend.nginx.example.com
+172.42.42.100   backend.nginx.example.com
+
+Now you will be able to access the urls using 
+
+http://frontend.nginx.example.com:80
+http://backend.nginx.example.com:80
+
+In case we want to split the requests based on path, please refer to ingress-resource-path.yaml
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
