@@ -1,5 +1,6 @@
 Create the frontend and backend service using below steps
 
+cd k8/day4/ingress
 
 kubectl create -f yaml/backend.yaml
 
