@@ -12,7 +12,7 @@ spec:
       paths:
       - path: /
         backend:
-          serviceName: nginx-clusterip-service
+          serviceName: my-nginx-service
           servicePort: 80
       - path: /frontend
         backend:
@@ -21,6 +21,6 @@ spec:
       - path: /backend
         backend:
           serviceName: backendapi-clusterip-service
-          servicePort: 80
+          servicePort: 5000
 
     

@@ -18,52 +18,52 @@ kubectl create -f yaml/frontend-clusterip-service.yaml
 Deploy the Nginx Ingress controller
 -----------------------------------
 
-kubectl create -f  https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.24.1/deploy/mandatory.yaml
 
-
-Expose the ingress-nginx either as a NodePort or a LoadBalancer service.
-
-
-kubectl create namespace ingress-nginx
-
-kubectl create -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.24.1/deploy/provider/cloud-generic.yaml
-
-kubectl get svc -n ingress-nginx
-
-Create an ingress resource to point the path to services
-
-
-kubectl create -f yaml/ingress-resource.yaml
-
-In order  for this to work, we need to add the DNS  entries in /etc/hosts
-For Exp-
-
-172.42.42.100   nginx.example.com
-172.42.42.100   frontend.nginx.example.com
-172.42.42.100   backend.nginx.example.com
-
-Now you will be able to access the urls using 
-
-http://frontend.nginx.example.com:80
-http://backend.nginx.example.com:80
-
-In case we want to split the requests based on path, please refer to ingress-resource-path.yaml
+$ git clone https://github.com/nginxinc/kubernetes-ingress/
+$ cd kubernetes-ingress/deployments
+$ git checkout v1.8.1
 
 
 
+Create a namespace and a service account for the Ingress controller:
+
+    $ kubectl apply -f common/ns-and-sa.yaml
+
+    Create a cluster role and cluster role binding for the service account:
+
+    $ kubectl apply -f rbac/rbac.yaml
+
+    (App Protect only) Create the App Protect role and role binding:
+
+    $ kubectl apply -f rbac/ap-rbac.yaml
 
 
 
+Create a secret with a TLS certificate and a key for the default server in NGINX:
+
+$ kubectl apply -f common/default-server-secret.yaml
+
+
+Create a config map for customizing NGINX configuration:
+
+$ kubectl apply -f common/nginx-config.yaml
 
 
 
+Run the Ingress Controller
+
+
+$ kubectl apply -f daemon-set/nginx-ingress.yaml
 
 
 
+$ kubectl get pods --namespace=nginx-ingress
 
 
+Create a Service for the Ingress Controller Pods
 
 
+$ kubectl create -f service/nodeport.yaml
 
 
 

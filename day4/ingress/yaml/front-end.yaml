@@ -24,4 +24,6 @@ spec:
 
           env:
             - name:  APPURL
-              value: http://10.103.127.135:5000
+              #value: http://10.109.91.214:5000
+              value: http://backendapi-clusterip-service:5000
+
