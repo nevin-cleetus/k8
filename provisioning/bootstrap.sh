@@ -58,6 +58,9 @@ EOF
 # Install Kubernetes
 echo "[TASK 9] Install Kubernetes (kubeadm, kubelet and kubectl)"
 yum install -y -q kubeadm kubelet kubectl >/dev/null 2>&1
+## yum install -y -q kubeadm-1.9.0 kubelet-1.9.0 kubectl-1.9.0 > /dev/null 2>&1
+
+
 
 # Start and Enable kubelet service
 echo "[TASK 10] Enable and start kubelet service"
